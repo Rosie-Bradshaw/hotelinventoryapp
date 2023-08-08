@@ -1,0 +1,14 @@
+<h1>welcome to {{hotelName}}</h1> <!-- Interpolation -->
+
+<div [hidden]="hideRooms">
+    Number of Rooms:                                                
+    <div [innerText] = "numberOfRooms"></div> <!-- Property binding -->
+</div>
+
+{{rooms?.availableRooms ?? 'No rooms'}} <!-- if availableRooms property is not available, display 'no rooms' -->
+
+<div *ngIf="rooms?.availableRooms "> <!-- similar to above, this syntax also displays rooms list only if there are rooms available -->
+    Rooms List
+</div>
+
+<button (click)="toggle()">Toggle</button>  <!-- Event binding -->
