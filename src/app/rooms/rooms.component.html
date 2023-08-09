@@ -7,8 +7,39 @@
 
 {{rooms?.availableRooms ?? 'No rooms'}} <!-- if availableRooms property is not available, display 'no rooms' -->
 
-<div *ngIf="rooms?.availableRooms "> <!-- similar to above, this syntax also displays rooms list only if there are rooms available -->
+<!-- json pipe should be used only for debugging purposes, not for production -->
+<!-- {{roomList | json}} -->
+
+<div *ngIf="rooms.availableRooms >0"> <!-- similar to above, this syntax also displays rooms list only if there are rooms available -->
     Rooms List
+    <!-- {{roomList}} -->
+    <table>
+        <tr>
+             <!-- ngStyle applies styles inline -->
+            <th [ngStyle] = "{'color':'green'}">Index</th>
+            <th>Even/Odd</th>
+            <th>Room Number</th>
+            <th>Room Type</th>
+            <th>Room Price</th>
+            <th>Room Amenities</th>
+            <th>Checkin Time</th>
+            <th>Rating</th>
+        </tr>
+        <!-- *ngFor is a directive to loop through arrays -->
+        <!-- ngClass applies styles from a class -->
+        <tr [ngClass]="e? 'even': 'odd'" 
+        *ngFor="let room of roomList ; let e=even; let o=odd; let i=index">   
+            <!-- *ngFor can also display even or odd values with 'even' or 'odd' keywords, or index -->
+            <td>{{i | percent }}</td>
+            <td>{{e ? "Even" : "Odd"}}</td>
+            <td>{{room.roomNumber}}</td>
+            <td>{{room.roomType}}</td>
+            <td>{{room.price | currency: 'EUR'}}</td>
+            <td>{{room.amenities | titlecase }}</td>
+            <td>{{room.checkinTime | date : 'dd/MMM/YYYY'}}</td>
+            <td>{{room.rating | number: '1.1-2'}}</td>
+        </tr>
+    </table>
 </div>
 
 <button (click)="toggle()">Toggle</button>  <!-- Event binding -->
